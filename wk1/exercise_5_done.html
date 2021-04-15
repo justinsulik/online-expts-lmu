@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      <p>Just a little paragraph.</p>
+      <button id="my-button">Click!</button>
+  </body>
+  <script>
+
+    // what should happen
+    function do_something(click_event){
+      // print a stupid message, and print out what was clicked
+      // (click_event.target is the element that was the target of the click_event)
+      console.log("clicky-click!", click_event.target)
+    }
+
+    // what it should happen to: the document
+    // when it should happen: when clicked (on a click event)
+    // --> this is how you attach an event to the document
+    document.onclick = function(event){
+      do_something(event)
+    }
+
+    // 1: write another function that does something else
+    // think of what you want to try, then google it!
+    function do_something_else(click_event){
+      click_event.target.style.backgroundColor = "red"
+    }
+
+    // 2: attach the above function to the button
+    // this button is selected as follows:
+    var button = document.getElementById("my-button")
+    // you just need to follow the above example to attach your new function to this button when clicked
+    button.onclick = function(event){
+      do_something_else(event)
+    }
+
+  </script>
+</html>
