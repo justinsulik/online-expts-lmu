@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div>Example of an array:</div>
+    <div id="array-elements"></div>
+    <div id="array-properties"></div>
+  </body>
+  <script>
+    var my_array = [3, 1, 4, 1, 5, 9, 2, 7]
+    document.getElementById("array-elements").innerHTML = my_array
+
+    // indexing - pick out the Nth element in the array
+    // starts counting from 0!
+    console.log(my_array[0], my_array[2], my_array[10])
+
+    // basic properties of arrays
+    var length = my_array.length
+    document.getElementById("array-properties").innerHTML  = "are the first " + length + " digits of pi"
+
+    // changing the array (arrays are mutable)
+    my_array[my_array.length-1] = 6
+    my_array.push(5)
+    console.log(my_array)
+
+    // arrays can be the arguments to functions
+    function count_from_end(arr, position_from_right){
+      var length = arr.length
+      var nth_last_element = arr[length-position_from_right]
+      return nth_last_element
+    }
+    console.log(count_from_end(my_array, 2))
+
+    // iterating over arrays and doing something with each element:
+    // in order, can look at each (element, index) pair
+    // and then do something with them (a function)
+    // so function(element, index) {...do something...}
+    // my_array.forEach(do_something(element,index))
+    my_array.forEach(function(element, index){
+      console.log("element #", index, "is", element)
+    })
+
+    // optional extension exercise: write a function that sums the elements of a numeric array
+
+  </script>
+
+</html>
