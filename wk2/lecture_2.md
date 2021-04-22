@@ -413,9 +413,31 @@ Open exercise 3
 ## Homework
 
 - Readings:
-  - Forget the Figdor & Drabek reading. If you're interested in this, read Pohlhaus (2015) instead
+  - Forget the Figdor & Drabek reading. If you're interested in gender+x-phi, read Pohlhaus (2015) instead
 - Practical:
   - Create a new html file (just copy+paste exercise 3, give it an informative name)
   - Look up one more jsPsych trial type, read the documentation, look at the example
   - Try include it in a toy survey
+
+## Citations {.smaller}
+
+Buckwalter, W., & Stich, S. (2014). Gender and philosophical intuition. Experimental philosophy, 2, 307-346.
+
+Figdor, C., & Drabek, M. L. (2016). Experimental philosophy and the underrepresentation of women. A companion to experimental philosophy, 590-602.
+
+Henrich, J., Heine, S. J., & Norenzayan, A. (2010). The weirdest people in the world?. Behavioral and brain sciences, 33(2-3), 61-83.
+
+Muthukrishna, M., Bell, A. V., Henrich, J., Curtin, C. M., Gedranovich, A., McInerney, J., & Thue, B. (2020). Beyond Western, Educated, Industrial, Rich, and Democratic (WEIRD) psychology: Measuring and mapping scales of cultural and psychological distance. Psychological science, 31(6), 678-701.
+
+Nichols, S. (2004). Folk concepts and intuitions: From philosophy to cognitive science. Trends in Cognitive Sciences, 8(11), 514-518.
+
+Pohlhaus, G. (2015). Different voices, perfect storms, and asking Grandma what she thinks: Situating experimental philosophy in relation to feminist philosophy. Feminist Philosophy Quarterly, 1(1).
+
+Talhelm, T., Zhang, X., Oishi, S., Shimin, C., Duan, D., Lan, X., & Kitayama, S. (2014). Large-scale psychological differences within China explained by rice versus wheat agriculture. Science, 344(6184), 603-608.
+
+Talhelm, T., & English, A. S. (2020). Historically rice-farming societies have tighter social norms in China and worldwide. Proceedings of the National Academy of Sciences, 117(33), 19816-19824.
+
+Talhelm, T., Haidt, J., Oishi, S., Zhang, X., Miao, F. F., & Chen, S. (2015). Liberals think more analytically (more “WEIRD”) than conservatives. Personality and Social Psychology Bulletin, 41(2), 250-267.
+
+Weinberg, J. M., Nichols, S., & Stich, S. (2001). Normativity and epistemic intuitions. Philosophical topics, 29(1/2), 429-460.
 
