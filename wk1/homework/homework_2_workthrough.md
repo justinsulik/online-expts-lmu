@@ -7,10 +7,6 @@ output:
     toc_depth: 2
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 # Outline of the problem
 
 - You're given a template (`homework_2.html`) that contains some basic html, as well as instructions in the `<script>` area

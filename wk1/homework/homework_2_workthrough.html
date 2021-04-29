@@ -1544,7 +1544,7 @@ div.tocify {
 </ul>
 <p>Here are some examples from the <code>exercise_5_done.html</code> (I’ve deleted the extraneous bits and tweaked the comments)</p>
 <pre><code>    // what do you want to do?
-    function do_something_else(click_event){
+    function do_something(click_event){
       click_event.target.style.backgroundColor = &quot;red&quot;
     }
 
@@ -1553,7 +1553,7 @@ div.tocify {
     
     // when will it do something? On clicking...
     button.onclick = function(event){
-      do_something_else(event)
+      do_something(event)
     }</code></pre>
 <p>If you copy+paste this as is into <code>homework_2.html</code> then something should happen on a click: the button changes color. (Note: the ID in <code>document.getElementById()</code>) needs to match the ID in the html <code>&lt;button id=&quot;my-button&quot;&gt;Click!&lt;/button&gt;</code></p>
 <p>I have this working in <code>homework_2_stage1.html</code></p>
@@ -1565,8 +1565,8 @@ div.tocify {
 <pre><code>var click_count = 0</code></pre>
 <p>Next we want to increase this count everyt time the button is clicked. Google ’js increase number by 1`. It will lead you to pages like <a href="https://codeburst.io/javascript-increment-and-decrement-8c223858d5ed">https://codeburst.io/javascript-increment-and-decrement-8c223858d5ed</a> which tell you that the code is:</p>
 <pre><code>click_count++</code></pre>
-<p>But the next question is where to put these? Since they are about what happens when we click (what happens = function, so the function <code>do_something_else</code>) we might put them in there. To check if things are working, use a <code>console.log()</code> (always do this! And open the javascript console so you can see what’s being printed there…)</p>
-<pre><code>    function do_something_else(click_event){
+<p>But the next question is where to put these? Since they are about what happens when we click (what happens = function, so the function <code>do_something</code>) we might put them in there. To check if things are working, use a <code>console.log()</code> (always do this! And open the javascript console so you can see what’s being printed there…)</p>
+<pre><code>    function do_something(click_event){
       var click_count = 0
       click_count++
       console.log(click_count)
@@ -1579,10 +1579,44 @@ div.tocify {
 <p>Think about what’s happening:</p>
 <ul>
 <li>The button is clicked</li>
-<li>On the click event, the function <code>do_something_else</code> is being run</li>
+<li>On the click event, the function <code>do_something</code> is being run</li>
 <li>Each time it is run, it just running the code inside it</li>
 <li>This code includes setting <code>var click_count = 0</code></li>
 <li>So it’s resetting to 0 on every click, then incrementing once at <code>click_count++</code></li>
+</ul>
+<p>In other words, we need to put <code>var click_count = 0</code> somewhere where the <code>do_something</code> function can’t reset it. Try putting it in the main part of the <code>&lt;script&gt;</code> (see <code>homework_2_stage3.html</code>). Now, it seems to be increasing on each click. It’s working!</p>
+</div>
+<div id="checking-if-a-condition-is-met" class="section level1">
+<h1>Checking if a condition is met</h1>
+<p>In our <code>do_something</code> function we need to add some logic, including: - Check IF something is the case - So let’s start with the IF part before we worry about the IF odd vs even part</p>
+<p>Google “js if” and it will tell you the IF logic looks something like</p>
+<pre><code>if(condition){...do this if condition is true...}else{...do this if condition is false...}</code></pre>
+<p>Which is often formatted something like the following (though this is personal preference)</p>
+<pre><code>if( condition ){
+  ...do this if condition is true...
+  } else {
+  ...do this if condition is false...
+  }</code></pre>
+<p>Always start simple. So before trying to have the <code>condition</code> check if something is even/odd, let’s check we have the basic <code>if()</code> working by doing something simpler, like <code>if( click_count &gt; 3 )</code></p>
+<p>Remember: use lots of <code>console.log()</code> to check something is working. If you try to get too fancy with your commands too soon, you won’t know if the problem is in the <code>if()</code> part or in the <code>...do this...</code> part.</p>
+<p>So I’ve added a simple <code>if()</code> with some <code>console.log</code> to <code>homework_2_stage3.html</code>, which should now print “many clicks” or “few clicks” in the console depending on the condition <code>click_count &gt; 3</code></p>
+</div>
+<div id="checking-if-the-number-is-odd-or-even" class="section level1">
+<h1>Checking if the number is odd or even</h1>
+<p>Finally, we need to make different things happen on the odd/even clicks. You could google <code>js odd even</code> or <code>js divisible by 2</code>. This could lead you to a page such as <a href="https://stackoverflow.com/questions/2821006/find-if-variable-is-divisible-by-2">https://stackoverflow.com/questions/2821006/find-if-variable-is-divisible-by-2</a> which contains the code:</p>
+<pre><code>variable % 2 === 0  </code></pre>
+<p>Further googling/exploration will tell you that <code>%</code> just gives you the remainder of a division, so this just checks if, when you divide by 2, the remainder is 0 (which will be true for even numbers).</p>
+<p>So I’ve just added the above code to the <code>if()</code> statement in <code>homework_2_stage4.html</code> (obviously, replacing <code>variable</code> with our actual variable name <code>click_count</code>).</p>
+<p>I’ve also decided that the thing I want to do on odd/even clicks is just have different colors of the button in question, so I’ve just moved the existing <code>click_event.target.style.backgroundColor = &quot;red&quot;</code> command to the even condition, and copy+pasted it, changing the color, in the odd condition.</p>
+<p>Finally, I have added comments (like <code>// if even</code> or <code>// if odd</code>) to keep track of these conditions.</p>
+</div>
+<div id="final-advice" class="section level1">
+<h1>Final advice</h1>
+<ul>
+<li>Start small/simple</li>
+<li>Use lots of console.logs</li>
+<li>Include comments to keep track of things</li>
+<li>Google the error message</li>
 </ul>
 </div>
 

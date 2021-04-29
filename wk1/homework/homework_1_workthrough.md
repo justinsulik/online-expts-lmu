@@ -7,10 +7,6 @@ output:
     toc_depth: 2
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 # Outline of the problem
 
 - You have `example.pdf` and a plain html file, and you need to style the html file to look close(ish) to the pdf
