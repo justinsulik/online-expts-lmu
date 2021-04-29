@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My experiment</title>
+    <script src="../jspsych/jspsych.js"></script>
+    <script src="../jspsych/plugins/jspsych-html-button-response.js"></script>
+    <script src="../jspsych/plugins/jspsych-survey-text.js"></script>
+    <link href="../jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+  </body>
+  <script>
+
+    var my_timeline = [];
+
+    var options = ["yes", "no"];
+    var options_shuffled = jsPsych.randomization.shuffle(options);
+    var gettier_response;
+
+    // This is the trial we saw in exercise 1
+    // It just has property on_finish added
+    // This property has a function with input data that is just the trial's data
+    // Currently, it just logs the data
+    var gettier_trial = {
+      type: 'html-button-response',
+      stimulus: '<p>John places a watch blah blah blah</p> <p><i>Does John know there\'s a watch on the table?</i></p>',
+      choices: options_shuffled,
+      on_finish: function(data){
+        gettier_response = options_shuffled[data.response];
+      }
+    };
+
+    my_timeline.push(gettier_trial);
+
+    var justification_trial = {
+      type: 'survey-text',
+      questions: [{prompt: 'Why did you say ' + gettier_response + '?'}]
+    }
+
+    my_timeline.push(justification_trial)
+
+    // 1. Just run this to check that the above approach isn't working. What is the trial displaying?
+    // 2. To have it check the value of gettier_response at the current time (rather than on load),
+    //    wraph the relevant value in a function:
+    //    so instead of key: value
+    //    put key: function(){value}
+
+
+
+    jsPsych.init({
+      timeline: my_timeline
+    })
+
+  </script>
+</html>

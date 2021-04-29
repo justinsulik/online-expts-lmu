@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My experiment</title>
+    <script src="../jspsych/jspsych.js"></script>
+    <script src="../jspsych/plugins/jspsych-html-button-response.js"></script>
+    <link href="../jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+  </body>
+  <script>
+
+    var my_timeline = [];
+
+    var options = ["yes", "no"];
+    var options_shuffled = jsPsych.randomization.shuffle(options);
+
+    // This is the trial we saw in exercise 1
+    // It just has property on_finish added
+    // This property has a function with input data that is just the trial's data
+    // Currently, it just logs the data
+    var gettier_trial = {
+      type: 'html-button-response',
+      stimulus: '<p>John places a watch blah blah blah</p> <p><i>Does John know there\'s a watch on the table?</i></p>',
+      choices: options_shuffled,
+      on_finish: function(data){
+        console.log(data)
+      }
+    };
+
+    my_timeline.push(gettier_trial);
+
+    // 1. Review the notes on js Objects to work out how to extract the response from the trial data
+    // 2. How useful is this response? What does it mean? Can you make it more informative?
+    // 3. Store it as a variable called 'gettier_response'
+    // 4. One choice: where to declare that variable?
+
+
+
+    jsPsych.init({
+      timeline: my_timeline
+    })
+
+  </script>
+</html>

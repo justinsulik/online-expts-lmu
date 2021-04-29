@@ -150,6 +150,7 @@ Why?
 ## Culture and causation
 
 Bender & Beller (2019)
+
 - Causation is a fairly foundational philosophical topic (cf. Hume)
 - Seems universal
   - Animals and children have rudimentary understanding 
@@ -398,13 +399,132 @@ How do you know what properties each object has/needs? Google and copy+paste
 
 ## A basic jsPsych experiment
 
-Need some tasks: various objects (`var main_instructions = {}`, `var questionnaire_1 = {}`)
+Need some tasks: various objects
+```
+var main_instructions = {}
+var questionnaire_1 = {}
+```
 
-Need a timeline: an array (`var timeline = []`)
+Need a timeline: an array
+```
+var timeline = []
+```
 
-Put the objects in the array (`timeline.push(main_instructions)`)
+Put the objects in the array 
+```
+timeline.push(main_instructions)
+```
 
 Tell jsPsych to start an experiment with that timeline
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+HEAD
+BODY
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+HEAD <-- admin
+BODY <-- content
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+<head>
+</head>
+<body>
+</body>
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+<head>
+  can load scripts in here
+</head>
+<body>
+</body>
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+<head>
+  <script></script>
+</head>
+<body>
+</body>
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+<head>
+  <script src="..."></script>
+</head>
+<body>
+</body>
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+<head>
+  <script src="jspsych/jspsych.js"></script>
+</head>
+<body>
+</body>
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+<head>
+  <script src="jspsych/jspsych.js"></script>
+</head>
+<body>
+</body>
+ or can add a script here
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+<head>
+  <script src="jspsych/jspsych.js"></script>
+</head>
+<body>
+</body>
+  <script></script>
+```
+
+## A basic jsPsych experiment
+
+To get you orientated, remember the basic structure of an html document is:
+```
+<head>
+  <script src="jspsych/jspsych.js"></script>
+</head>
+<body>
+</body>
+  <script>
+    var timeline = [];
+    var trial = {};
+  </script>
+```
 
 ## A basic jsPsych experiment
 
@@ -421,23 +541,23 @@ Open exercise 3
 
 ## Citations {.smaller}
 
-Buckwalter, W., & Stich, S. (2014). Gender and philosophical intuition. Experimental philosophy, 2, 307-346.
 
-Figdor, C., & Drabek, M. L. (2016). Experimental philosophy and the underrepresentation of women. A companion to experimental philosophy, 590-602.
+<font size="2">Buckwalter, W., & Stich, S. (2014). Gender and philosophical intuition. Experimental philosophy, 2, 307-346.</font>
 
-Henrich, J., Heine, S. J., & Norenzayan, A. (2010). The weirdest people in the world?. Behavioral and brain sciences, 33(2-3), 61-83.
+<font size="2">Figdor, C., & Drabek, M. L. (2016). Experimental philosophy and the underrepresentation of women. A companion to experimental philosophy, 590-602.</font>
 
-Muthukrishna, M., Bell, A. V., Henrich, J., Curtin, C. M., Gedranovich, A., McInerney, J., & Thue, B. (2020). Beyond Western, Educated, Industrial, Rich, and Democratic (WEIRD) psychology: Measuring and mapping scales of cultural and psychological distance. Psychological science, 31(6), 678-701.
+<font size="2">Henrich, J., Heine, S. J., & Norenzayan, A. (2010). The weirdest people in the world?. Behavioral and brain sciences, 33(2-3), 61-83.</font>
 
-Nichols, S. (2004). Folk concepts and intuitions: From philosophy to cognitive science. Trends in Cognitive Sciences, 8(11), 514-518.
+<font size="2">Muthukrishna, M., Bell, A. V., Henrich, J., Curtin, C. M., Gedranovich, A., McInerney, J., & Thue, B. (2020). Beyond Western, Educated, Industrial, Rich, and Democratic (WEIRD) psychology: Measuring and mapping scales of cultural and psychological distance. Psychological science, 31(6), 678-701.</font>
 
-Pohlhaus, G. (2015). Different voices, perfect storms, and asking Grandma what she thinks: Situating experimental philosophy in relation to feminist philosophy. Feminist Philosophy Quarterly, 1(1).
+<font size="2">Nichols, S. (2004). Folk concepts and intuitions: From philosophy to cognitive science. Trends in Cognitive Sciences, 8(11), 514-518.</font>
 
-Talhelm, T., Zhang, X., Oishi, S., Shimin, C., Duan, D., Lan, X., & Kitayama, S. (2014). Large-scale psychological differences within China explained by rice versus wheat agriculture. Science, 344(6184), 603-608.
+<font size="2">Pohlhaus, G. (2015). Different voices, perfect storms, and asking Grandma what she thinks: Situating experimental philosophy in relation to feminist philosophy. Feminist Philosophy Quarterly, 1(1).</font>
 
-Talhelm, T., & English, A. S. (2020). Historically rice-farming societies have tighter social norms in China and worldwide. Proceedings of the National Academy of Sciences, 117(33), 19816-19824.
+<font size="2">Talhelm, T., Zhang, X., Oishi, S., Shimin, C., Duan, D., Lan, X., & Kitayama, S. (2014). Large-scale psychological differences within China explained by rice versus wheat agriculture. Science, 344(6184), 603-608.</font>
 
-Talhelm, T., Haidt, J., Oishi, S., Zhang, X., Miao, F. F., & Chen, S. (2015). Liberals think more analytically (more “WEIRD”) than conservatives. Personality and Social Psychology Bulletin, 41(2), 250-267.
+<font size="2">Talhelm, T., & English, A. S. (2020). Historically rice-farming societies have tighter social norms in China and worldwide. Proceedings of the National Academy of Sciences, 117(33), 19816-19824.</font>
 
-Weinberg, J. M., Nichols, S., & Stich, S. (2001). Normativity and epistemic intuitions. Philosophical topics, 29(1/2), 429-460.
+<font size="2">Talhelm, T., Haidt, J., Oishi, S., Zhang, X., Miao, F. F., & Chen, S. (2015). Liberals think more analytically (more “WEIRD”) than conservatives. Personality and Social Psychology Bulletin, 41(2), 250-267.</font>
 
+<font size="2">Weinberg, J. M., Nichols, S., & Stich, S. (2001). Normativity and epistemic intuitions. Philosophical topics, 29(1/2), 429-460.</font>

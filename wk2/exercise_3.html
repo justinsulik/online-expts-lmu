@@ -2,12 +2,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
-    <!-- We need to load jsPsych -->
+    <title>My experiment</title>
     <script src="jspsych/jspsych.js"></script>
-    <!-- As well as any plugins (i.e., task types) that we need -->
     <script src="jspsych/plugins/jspsych-instructions.js"></script>
-    <!-- This is just how you load some custom css  -->
     <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
   </head>
   <body>
@@ -15,18 +12,26 @@
   </body>
   <script>
 
-    var timeline = [];
+    var my_timeline = [];
+
+    // now we're going to add a couple of trial objects
+    // trial = {
+    //   type: 'what type of trial',
+    //   property: 'what properties my trial has'
+    // }
 
     var welcome = {
-      // How do I know what types there are?
       type: 'instructions',
-      // How do I know that this has a 'pages' property? Add some more instructions...
       pages: ['Welcome to the experiment', 'We are going to give you some scenarios to read, and ask your opinions on them.']
     };
 
-    timeline.push(welcome)
+    // How do I know what types there are?
+    // How do I know that this has a 'pages' property? Add some more instructions...
 
-    // 1. Find out how to add backward/forward arrows
+    my_timeline.push(welcome);
+
+    // 1. Find out how to add backward/forward arrows to the welcome trial
+
     // 2. Look for the documentation for a jsPsych multiple-choice survey task
     // 3. Load the relevant plugin above
     // 4. Create a simple survey with 2 questions and 2 options (remember - you're often going to copy+paste+tweak)
@@ -36,7 +41,7 @@
 
 
     var experiment = {
-      timeline: timeline
+      timeline: my_timeline
     }
 
     jsPsych.init(experiment)

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My experiment</title>
+    <script src="../jspsych/jspsych.js"></script>
+    <script src="../jspsych/plugins/jspsych-instructions.js"></script>
+    <link href="../jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+  </body>
+  <script>
+
+    var my_timeline = [];
+
+    var options = ["yes", "no"];
+    var options_shuffled = jsPsych.randomization.shuffle(options);
+
+    var gettier_trial = {
+      type: 'html-button-response',
+      stimulus: '<p>John places a watch blah blah blah</p> <p><i>Does John know there\'s a watch on the table?</i></p>'
+      choices: options_shuffled
+    };
+
+    my_timeline.push(gettier_trial)
+
+    // Copy and paste the above trial (renaming it, and changing the stimulus) so there are two trials
+    // Randomize the order of the two gettier trials and add them to the timeline
+    // You can either do this fairly manually with indexing
+    // Or you can automate it a little bit with a forEach
+    // You pick how much of a challenge you want (manually = easier)
+
+
+    jsPsych.init({
+      timeline: my_timeline
+    })
+
+  </script>
+</html>

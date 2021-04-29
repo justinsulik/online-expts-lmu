@@ -20,19 +20,19 @@
   }
 
   // getting values by property
-  console.log(cat1['name'])
-  // or
-  console.log(cat1.name)
+  // either object['property'] OR object.property
+  console.log('example 1', cat1['name'], cat1.name)
+
 
   // changing properties
   cat1.name = 'Gus'
-  console.log(cat1)
+  console.log('example 2', cat1)
 
   // adding properties
   cat1.weight = 7
   cat1.picture = 'img/gus.jpg'
   cat2.picture = 'img/bertie.jpg'
-  console.log(cat1)
+  console.log('example 3', cat1)
 
   // doing something to the html using objects
   var image_string = '<img src="'+cat2.picture+'" height=300></img>'
@@ -41,14 +41,14 @@
   // Objects don't need to have simple properties
   cat1.hobbies = ['sleeping', 'eating']
   cat2.colors = ['black', 'tan']
-  console.log(cat1, cat2)
+  console.log('example 4', cat1, cat2)
 
   // The properties can be other objects/variables!
   var catowner = {
     name: 'justin',
     cats: [cat1, cat2]
   }
-  console.log(catowner)
+  console.log('example 5', catowner)
 
   // 1. work out how to log catowner's second cat's name
 

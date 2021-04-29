@@ -8,40 +8,54 @@
     <div>Example of an array:</div>
     <div id="array-elements"></div>
     <div id="array-properties"></div>
+    <div id="question-0"></div>
+    <div id="question-1"></div>
   </body>
   <script>
+
+    // Arrays - ordered lists
+    // see https://www.w3schools.com/js/js_arrays.asp
+    // or https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
     var my_array = [3, 1, 4, 1, 5, 9, 2, 7]
     document.getElementById("array-elements").innerHTML = my_array
 
-    // indexing - pick out the Nth element in the array
-    // starts counting from 0!
-    console.log(my_array[0], my_array[2], my_array[10])
+    // elements - what is in the array
+    // indexes - what their position is in the array
+    // array[i] picks out the element in position i of the array
+    // starts counting from 0
+    console.log("example 1", my_array[0], my_array[2], my_array[10])
 
     // basic properties of arrays
-    var length = my_array.length
-    document.getElementById("array-properties").innerHTML  = "are the first " + length + " digits of pi"
+    var how_long = my_array.length
+    var message = "are the first " + how_long + " digits of pi"
+    document.getElementById("array-properties").innerHTML  = message
 
     // changing the array (arrays are mutable)
-    my_array[my_array.length-1] = 6
-    my_array.push(5)
-    console.log(my_array)
+    my_array[0] = 999
+    console.log("example 2", my_array)
 
-    // arrays can be the arguments to functions
-    function count_from_end(arr, position_from_right){
-      var length = arr.length
-      var nth_last_element = arr[length-position_from_right]
-      return nth_last_element
-    }
-    console.log(count_from_end(my_array, 2))
+    // the term for adding to the end of an array is "push"
+    // array.push(x) will add x to the end of the array
+    my_array.push("new element")
+    console.log("example 3", my_array)
 
-    // iterating over arrays and doing something with each element:
-    // in order, can look at each (element, index) pair
-    // and then do something with them (a function)
-    // so function(element, index) {...do something...}
-    // my_array.forEach(do_something(element,index))
-    my_array.forEach(function(element, index){
-      console.log("element #", index, "is", element)
-    })
+    // iterating over arrays' contents
+    // array.forEach()
+
+    // typically you want to do something with each element or index: a function
+    // function(element, index){ ...do something...}
+
+    // combinding the above two steps:
+    // array.forEach(function(element, index){...})
+
+    var questions = ["What is truth?", "What is knowledge?"]
+    questions.forEach(function(element, index){
+
+      var question_string = "<p>" + element + "</p>"
+      var question_id = "question-" + index
+      document.getElementById(question_id).innerHTML = question_string
+
+    });
 
     // optional extension exercise: write a function that sums the elements of a numeric array
 
