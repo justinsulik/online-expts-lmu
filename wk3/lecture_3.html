@@ -3137,32 +3137,7 @@ slide:not(.current) .plotly.html-widget{
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>The plan</h2></hgroup><article  class="smaller " id="the-plan">
-
-<ul>
-<li>Talk about last time’s homework (specifically, what was the best way you could have gone about it)</li>
-<li>Cover jsPsych to build basic surveys</li>
-<li>Briefly talk about the gap between theory and data (what, actually, are we measuring)</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Homework strategies</h2></hgroup><article  class="smaller " id="homework-strategies">
-
-<ul>
-<li>I’d mentioned that it’s up to you to decide if you want to focus on the theory or on the coding</li>
-<li>And that this should determine how much time you spend on the readings or the practical exercises</li>
-<li>And that the practical exercises are meant to be challenging problems to solve, involving some googling</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Homework strategies</h2></hgroup><article  class="smaller " id="homework-strategies-1">
-
-<ul>
-<li>I was expecting lots of emails from people being stuck wanting to get some input</li>
-<li>I’m assuming either you got stuck and gave up or didn’t even try</li>
-<li>Perhaps the issue was you didn’t even know how to go about trying?</li>
-<li>I’ve put a detailed work-through of last time’s homework on the github to illustrate the process</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Back to jsPsych</h2></hgroup><article  class="smaller " id="back-to-jspsych">
+<slide class=""><hgroup><h2>Back to jsPsych</h2></hgroup><article  class="smaller " id="back-to-jspsych">
 
 <ul>
 <li>Last time we built a simple survey with a couple of question types</li>
@@ -3172,6 +3147,41 @@ slide:not(.current) .plotly.html-widget{
 <ul>
 <li>How to randomize things</li>
 <li>How to use responses in later questions</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Quick recap</h2></hgroup><article  class="smaller " id="quick-recap">
+
+<p>There are 2 ways to include scripts:</p>
+
+<ol>
+<li>If it’s your script, you put the code between <code>&lt;script&gt;</code> tags:</li>
+</ol>
+
+<pre >&lt;script&gt;
+var timeline = [];
+var survey = {
+  type: &quot;survey-multichoice&quot;,
+  questions: [...]
+}
+&lt;/script&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Quick recap</h2></hgroup><article  class="smaller " id="quick-recap-1">
+
+<ol>
+<li>If it’s another script that you’re just loading, you use the source <code>src=&quot;&quot;</code> attribute that just needs to point to the right file on your computer</li>
+</ol>
+
+<pre >&lt;script src=&quot;../jspsych/jspsych.js&quot;&gt;&lt;/script&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Quick recap</h2></hgroup><article  class="smaller " id="quick-recap-2">
+
+<ul>
+<li>Where do we put them? It depends on what you need and when you need it
+
+<ul>
+<li>As you want jspsych available before you actually do anything, load jspsych at some point before your own script</li>
+<li>As you want your script to create things to add to the web page, makes sense to do that after the page template has been created (i.e., after the <code>&lt;body&gt;&lt;/body&gt;</code>)</li>
 </ul></li>
 </ul>
 
@@ -3278,7 +3288,7 @@ var trial = {
 <li>So really it’s been more:
 
 <ul>
-<li>theory ↔ <em>inferred</em> intuition</li>
+<li>theory ↔ (data → <em>inferred</em> intuition)</li>
 </ul></li>
 <li>How much of a gap can there be between responses and the intuitions they’re meant to reflect? A <em>huge</em> one</li>
 <li>What do you need to know about closing the gap between observable data and inferred intuitions behind it? A bit of cognitive science methodology</li>
@@ -3370,7 +3380,7 @@ var trial = {
 
 </article></slide><slide class=""><hgroup><h2>The problem: pragmatic</h2></hgroup><article  class="smaller " id="the-problem-pragmatic-1">
 
-<p>From a current project of mine:</p>
+<p>From a current project of mine <a href='https://psyarxiv.com/djaex/' title=''>https://psyarxiv.com/djaex/</a>:</p>
 
 <ul>
 <li>Studying how people explain (vs. how theories explain)</li>

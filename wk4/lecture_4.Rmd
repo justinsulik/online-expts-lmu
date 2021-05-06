@@ -1,0 +1,292 @@
+---
+title: "Online experiments - lecture 4"
+author: Justin Sulik
+date: 06/05/21
+output: 
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+
+```{r, echo=F}
+library(DiagrammeR)
+```
+
+# Philosophy of science and science of philosophy
+
+## Philosophy of science and science of philosophy
+
+- We were going to talk about things that X-Phi can do that go beyond collecting intuitions to solve questions like "What is knowledge?"
+
+- However, I'm going to move this forward, distributing it between week 9 ("Going beyond intuitions") and week 13 ("Science")
+
+# Git and Github
+
+## Git + Github
+
+- Git: a local version control system
+- Github: a way to make Git collaborative
+
+- But, it's easier to start with *why* we need it before we worry about *just* what it does, so let's start at the end
+
+## Git + Github
+
+- Let's say you've written an experiment script
+- It's on your local machine
+- BUT for participants to actually do your study, it needs to be hosted somewhere online
+  - somewhere it can have a distinctive web address
+- You need to upload it, but it's not just a single file! There are lots of libraries and plugins!
+- Git can take a "snapshot" of the latest working version, and "push" your project (not only individual files but the whole project) to some cloud storage
+
+&rarr; If you want to send code somewhere (especially where a machine, like a server, can access it), use Git
+
+## Git + Github
+
+- Ok, the survey is running
+- Let's say you want to make a change (or a series of changes):
+```{r, echo=F}
+grViz("
+  digraph graph2 {
+  
+  graph [layout = dot, rankdir = RL]
+  
+  # node definitions with substituted label text
+  node [shape = rectangle]
+  
+  v4 -> v3 -> v2 -> v1
+  }
+  ", 
+  height = 50)
+```
+
+- So far, this is a bit like undo/redo on Word, except:
+- It's not for tracking every single change or every time you press a key
+  - You decide when each job or step or phase is done. Then you take a snapshot and give it a label
+  
+## Git + Github
+
+- The advantage? If you make a mistake/want to go back to an earlier version, you can just say "go back to v2"
+
+
+```{r, echo=F}
+grViz("
+  digraph graph2 {
+  
+  graph [layout = dot, rankdir = RL]
+  
+  # node definitions with substituted label text
+  node [shape = rectangle]
+  v1
+  v2
+  v3
+  v4
+  
+  node [shape = oval]
+  head [label='I AM HERE NOW']
+  
+  v4 -> v3 -> v2 -> v1
+  head -> v2
+  }
+  ", 
+  height = 100)
+```
+
+
+## Git + Github
+
+- Or if you change your mind and want to carry on where you stopped, you can just say "go back to v4"
+- Simultaneously you can tell the online server to display the study at v3 
+
+```{r, echo=F}
+grViz("
+  digraph graph2 {
+  
+  graph [layout = dot, rankdir = RL]
+  
+  # node definitions with substituted label text
+  node [shape = rectangle]
+  v1
+  v2
+  v3
+  v4
+  
+  node [shape = oval]
+  head [label='I AM HERE NOW']
+  server [label='Server display this']
+  
+  v4 -> v3 -> v2 -> v1
+  head -> v4
+  server -> v3
+  }
+  ", 
+  height = 100)
+```
+
+
+
+&rarr; It's a bit like a time machine. But one that only visits major landmarks in time (and you decide when to take a snapshot)
+
+## Git + Github
+
+- So far it's just linear: leaping backward and forward
+- But a great benefit of Git is that it can also *branch*
+- You and a colleague are both working on a survey, starting from the same snapshot [v1]
+  - You add some instruction; your collaborator adds some survey questions
+
+```{r, echo=F}
+grViz("
+  digraph graph2 {
+  
+  graph [layout = dot, rankdir = RL]
+  
+  # node definitions with substituted label text
+  node [shape = rectangle]
+  v1
+  v2
+  v3
+
+  {v2 v3} -> v1
+  }
+  ", 
+  height = 100)
+```
+  
+
+## Git + Github  
+  
+- If it was a simple Word doc you could just copy/paste some changes
+- But if it's in several places in each of several files, this is a pain
+- Git can merge these for you!
+
+```{r, echo=F}
+grViz("
+  digraph graph2 {
+  
+  graph [layout = dot, rankdir = RL]
+  
+  # node definitions with substituted label text
+  node [shape = rectangle]
+  
+  {v2 v3} -> v1
+  v4 -> {v2 v3}
+   
+  }
+  ", 
+  height = 100)
+```
+
+  
+&rarr; It's a bit like a time machine that can visit parallel timelines. And merge them together
+
+## Git + Github
+
+- It's especially useful when things get complicated
+
+```{r, echo=F}
+grViz("
+  digraph graph2 {
+  
+  graph [layout = dot, rankdir = RL]
+  
+  # node definitions with substituted label text
+  node [shape = rectangle]
+  {v2 v3} -> v1
+  v4 -> {v2 v3}
+  v5 -> v4
+  {v6 v7 v8} -> v5
+  v10 -> v9 -> v6
+  v11 -> {v10 v8}
+
+  }
+  ", 
+  height = 200)
+```
+
+## Git + Github
+
+- Git handles this version control (time machine jumping between snapshots including parallel timelines)
+- One place you can push a Git repostiory is Github, which makes it collaborative
+- Another place is Heroku, which will host the webpage for you
+
+## Git + Github
+
+- But wait, why are we doing this?
+- Ultimately, if you want to put code for a survey online you'll need it
+- If you want to submit code for assessment you'll need it
+
+## Git + Github
+
+We're going to run through 7 git commands. There are obviously more, and this doesn't include  branching and merging etc.
+
+```
+git init
+git status
+git add .
+git commit -m"put an informative message here"
+git remote
+git pull [where] [what]
+git push [where] [what]
+```
+
+Open exercise 1 and start using the commands there as we discuss them on the following slides
+
+## Create a git repository
+
+- `git init`
+- tell git that you're going to want to start tracking files
+- use whenever you're starting a new project (like next week's homework)
+- ultimately, you'll be telling git which files to keep track of (or all)
+
+## See what the status is
+
+- `git status`
+- tells you which branch you're on
+- tells you if any changes have been made (to what files) 
+- tells you if there are any files that you have added but haven't told git to keep track of
+
+## Take a snapshot
+
+- Git doesn't assume you're tracking all files. You need to tell it which to track, e.g.
+- `git add myfile.txt`
+- But if you do want to track everything, then you use a dot `.` to mean everything
+- `git add .`
+- Once you've told git which files to track (like a wedding photographer saying "Ok, this one is the bride's family so mom and dad, get in there")
+- Then you have to take a snapshot. And use a nice informative message `-m` to describe it. 
+- `git commit -m"picture of the bride's family"`
+- `git commit -m"have added the multiple-choice task`"
+
+## Connect to a remote/cloud storage repo
+
+- `git remote add [handy label] [url]`
+- `git remote add class_notes https://github.com/justinsulik/online-expts-lmu`
+
+- Commonly you'll just see the remote lablelled `origin` which is rather uninformative
+
+
+## Send/get 
+
+To bring the latest files to your computer:
+
+- `git pull [repo name] [which branch]`
+- `git pull class_notes main`
+
+To send newer versions to the cloud:
+
+- `git push [repo name] [which branch]`
+
+(There is also `git clone` if you want to just copy the whole thing, but not have your new project folder linked to the origin. Useful if you're just copying a template, for example)
+
+## Homework
+
+- Watch a couple videos at [https://git-scm.com/doc](https://git-scm.com/doc) or
+- Find a tutorial that matches your learning style or
+- Play the game at [https://ohmygit.org](https://ohmygit.org)
+- We've been updating the class notes manually. Now, choose a directory you're going to stick with, initialise an empty git repostitory, add my github repo as a remote, and pull the files. Do that before each class. 
+
+## Citations
+
+
+
+
+

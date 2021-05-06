@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My experiment</title>
+    <script src="../../jspsych/jspsych.js"></script>
+    <script src="../../jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+    <link href="../../jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+  </body>
+  <script>
+
+    var timeline = [];
+
+    var colors = ['red', 'blue', 'yellow', 'green']
+
+    var factors = {
+      font_color: colors,
+      stimulus_text: colors
+    }
+
+    var full_design = jsPsych.randomization.factorial(factors, 1);
+
+    full_design.forEach(function(element, index){
+      var stim_string = '<p style="color:'+element.font_color+'">'+element.stimulus_text+'</p>'
+      console.log(stim_string)
+      var keyboard_response = {
+          type: 'html-keyboard-response',
+          stimulus: stim_string,
+          choices: ['r', 'b', 'g', 'y'],
+          prompt: "<p>Press the key that matches the color of the word (<b>r</b>ed, <b>b</b>lue, <b>y</b>ellow, <b>g</b>reen) </p>"
+      };
+      timeline.push(keyboard_response)
+
+    })
+
+
+
+    var experiment = {
+      timeline: timeline
+    }
+
+    jsPsych.init(experiment)
+
+  </script>
+</html>

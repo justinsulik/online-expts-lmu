@@ -50,7 +50,7 @@ Keeping track of information is what variables are for. So you'll need something
 var click_count = 0
 ```
 
-Next we want to increase this count everyt time the button is clicked. Google 'js increase number by 1`. It will lead you to pages like [https://codeburst.io/javascript-increment-and-decrement-8c223858d5ed](https://codeburst.io/javascript-increment-and-decrement-8c223858d5ed) which tell you that the code is:
+Next we want to increase this count every time the button is clicked. Google 'js increase number by 1`. It will lead you to pages like [https://codeburst.io/javascript-increment-and-decrement-8c223858d5ed](https://codeburst.io/javascript-increment-and-decrement-8c223858d5ed) which tell you that the code is:
 
 ```
 click_count++

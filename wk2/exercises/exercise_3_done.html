@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My experiment</title>
+    <script src="../../jspsych/jspsych.js"></script>
+    <script src="../../jspsych/plugins/jspsych-instructions.js"></script>
+    <script src="../../jspsych/plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="../../jspsych/plugins/jspsych-survey-text.js"></script>
+    <link href="../../jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+  </body>
+  <script>
+
+    var my_timeline = [];
+
+    // now we're going to add a couple of trial objects
+    // trial = {
+    //   type: 'what type of trial',
+    //   property: 'what properties my trial has'
+    // }
+
+    var welcome = {
+      type: 'instructions',
+      pages: [
+        'Welcome to the experiment',
+        'We are going to give you some scenarios to read, and ask your opinions on them.'
+      ]
+    };
+
+    // How do I know what types there are?
+    // How do I know that this has a 'pages' property? Add some more instructions...
+
+    // 1. Find out how to add backward/forward arrows to the welcome trial
+    var welcome = {
+      type: 'instructions',
+      pages: [
+        'Welcome to the experiment',
+        'We are going to give you some scenarios to read, and ask your opinions on them.'
+      ],
+      show_clickable_nav: true
+    };
+    // 2. Look for the documentation for a jsPsych multiple-choice survey task
+
+    // 3. Load the relevant plugin above
+      //...added as <script> above
+    // 4. Create a simple survey with 2 questions and 2 options (remember - you're often going to copy+paste+tweak)
+    var options_agree = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
+
+    var survey = {
+      type: 'survey-multi-choice',
+      preamble: 'Please rate how well the following statements describe you.',
+      questions: [
+        {prompt: "I have a background in psychology",
+         name: 'psych',
+         options: options_agree,
+         required: true, // these options described on jsPsych docs page
+         horizontal: true},
+        {prompt: "I have a background in philosophy",
+         name: 'phil',
+         options: options_agree,
+         required: true,
+         horizontal: true}
+      ],
+    };
+    // 5. Add it to the timeline
+      // I've added these below, so there're all in one place...
+
+    // 6. Now try add a new element: a survey question that needs a text response
+
+    var text = {
+      type: 'survey-text',  // don't forget to load the relevant plugins (lines 8 - 9)
+      preamble: 'Please give a brief response to each question.',
+      questions: [
+        {prompt: "Who is your favourite thinker/scientist?",
+         name: 'thinker',
+         required: true,
+         rows: 1, // these options described on jsPsych docs page
+         columns: 30},
+        {prompt: "What is the best thing you learned last year?",
+         name: 'learn',
+         required: true,
+         rows: 4,
+         columns: 60}
+      ],
+    };
+
+    my_timeline.push(welcome);
+    my_timeline.push(survey);
+    my_timeline.push(text);
+
+
+    var experiment = {
+      timeline: my_timeline
+    }
+
+    jsPsych.init(experiment)
+
+  </script>
+</html>

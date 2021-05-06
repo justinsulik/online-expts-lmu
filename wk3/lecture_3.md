@@ -8,25 +8,6 @@ output:
     smaller: true
 ---
 
-## The plan
-
-- Talk about last time's homework (specifically, what was the best way you could have gone about it)
-- Cover jsPsych to build basic surveys
-- Briefly talk about the gap between theory and data (what, actually, are we measuring)
-
-## Homework strategies
-
-- I'd mentioned that it's up to you to decide if you want to focus on the theory or on the coding
-- And that this should determine how much time you spend on the readings or the practical exercises
-- And that the practical exercises are meant to be challenging problems to solve, involving some googling
-
-## Homework strategies
-
-- I was expecting lots of emails from people being stuck wanting to get some input
-- I'm assuming either you got stuck and gave up or didn't even try
-- Perhaps the issue was you didn't even know how to go about trying?
-- I've put a detailed work-through of last time's homework on the github to illustrate the process
-
 ## Back to jsPsych
 
 - Last time we built a simple survey with a couple of question types
@@ -34,6 +15,38 @@ output:
 - Today we're going over a couple more complex aspects:
     - How to randomize things
     - How to use responses in later questions
+
+## Quick recap
+
+There are 2 ways to include scripts:
+
+1. If it's your script, you put the code between `<script>` tags:
+
+```
+<script>
+var timeline = [];
+var survey = {
+  type: "survey-multichoice",
+  questions: [...]
+}
+</script>
+```
+
+## Quick recap
+
+
+2. If it's another script that you're just loading, you use the source `src=""` attribute that just needs to point to the right file on your computer
+
+```
+<script src="../jspsych/jspsych.js"></script>
+```
+
+## Quick recap
+
+- Where do we put them? It depends on what you need and when you need it
+  - As you want jspsych available before you actually do anything, load jspsych at some point before your own script
+  - As you want your script to create things to add to the web page, makes sense to do that after the page template has been created (i.e., after the `<body></body>`)
+
 
 ## Randomization
 
@@ -113,7 +126,7 @@ So if we've stored the info from a previous trial in such a variable, we *should
   - We're measuring people's responses
 
 - So really it's been more:
-  - theory &harr; *inferred* intuition
+  - theory &harr; (data &rarr; *inferred* intuition)
   
 - How much of a gap can there be between responses and the intuitions they're meant to reflect?  A *huge* one
 - What do you need to know about closing the gap between observable data and inferred intuitions behind it? A bit of cognitive science methodology
@@ -174,7 +187,7 @@ Pragmatics is the branch of linguistics that is about
 
 ## The problem: pragmatic
 
-From a current project of mine: 
+From a current project of mine ([https://psyarxiv.com/djaex/](https://psyarxiv.com/djaex/)): 
 
 - Studying how people explain (vs. how theories explain)
 - Collected 1000s of responses to "Why?" questions

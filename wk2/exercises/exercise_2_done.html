@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="cats"></div>
+    <div id="dogs"></div>
+  </body>
+  <script>
+
+  var cat1 = {
+    name: 'Gustav',
+    fur: 'grey'
+  }
+
+  var cat2 = {
+    name: 'Bertram',
+    fur: 'tiger'
+  }
+
+  // getting values by property
+  // either object['property'] OR object.property
+  console.log('example 1', cat1['name'], cat1.name)
+
+
+  // changing properties
+  cat1.name = 'Gus'
+  console.log('example 2', cat1)
+
+  // adding properties
+  cat1.weight = 7
+  cat1.picture = 'img/gus.jpg'
+  cat2.picture = 'img/bertie.jpg'
+  console.log('example 3', cat1)
+
+  // doing something to the html using objects
+  var image_string = '<img src="'+cat2.picture+'" height=300></img>'
+  document.getElementById("cats").innerHTML = image_string
+
+  // Objects don't need to have simple properties
+  cat1.hobbies = ['sleeping', 'eating']
+  cat2.colors = ['black', 'tan']
+  console.log('example 4', cat1, cat2)
+
+  // The properties can be other objects/variables!
+  var catowner = {
+    name: 'justin',
+    cats: [cat1, cat2]
+  }
+  console.log('example 5', catowner)
+
+  // 1. work out how to log catowner's second cat's name
+  console.log(catowner.cats[1])
+
+  // 2. add a div to the body, give it an ID
+  // 3. create an object with some properties
+  var dog = {name: 'rex', food: 'biscuits'}
+  // 4. add some of that info to your div
+  document.getElementById("dogs").innerHTML = dog.name + ' likes ' + dog.food
+
+  </script>
+</html>
