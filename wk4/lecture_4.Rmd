@@ -43,8 +43,9 @@ library(DiagrammeR)
 
 ## Git + Github
 
-- Ok, the survey is running
+- Ok, let's say you have a survey that you've started working on
 - Let's say you want to make a change (or a series of changes):
+
 ```{r, echo=F}
 grViz("
   digraph graph2 {
@@ -54,7 +55,7 @@ grViz("
   # node definitions with substituted label text
   node [shape = rectangle]
   
-  v4 -> v3 -> v2 -> v1
+  version4 -> version3 -> version2 -> version1
   }
   ", 
   height = 50)
@@ -63,6 +64,12 @@ grViz("
 - So far, this is a bit like undo/redo on Word, except:
 - It's not for tracking every single change or every time you press a key
   - You decide when each job or step or phase is done. Then you take a snapshot and give it a label
+  - a bit like having multiple copies of a document (one for each version, except it magically needs just one file)
+  
+## Git + Github  
+  
+<img src="img/phd101212s.gif" style="height:450px">
+[source](http://phdcomics.com/comics/archive.php?comicid=1531&quot;&gt;creativity&lt;/a&gt;.&lt;!--more--&gt;&lt;/p&gt;)
   
 ## Git + Github
 

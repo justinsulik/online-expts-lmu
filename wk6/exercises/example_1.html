@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My experiment</title>
+    <script src="../../jspsych/jspsych.js"></script>
+    <script src="../../jspsych/plugins/jspsych-instructions.js"></script>
+    <script src="../../jspsych/plugins/jspsych-survey-multi-choice.js"></script>
+    <link href="../../jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
+
+  </head>
+  <body>
+
+  </body>
+  <script>
+
+    // This is just an example of my preferred attention check
+    // No specific tasks for you to do
+
+    var my_timeline = [];
+
+    var english_instructions = {
+      type: 'instructions',
+      pages: ['In this study, you will be doing two main tasks. In the first task, you\'ll be rating sentences according to whether they are good English or not.<br><br>' +
+      'For each sentence, just click "yes" if you think it is good English and "no" if you think it is not.'],
+      show_clickable_nav: true,
+    }
+
+    var english_options = ['no', 'yes'];
+
+    var questions_eng = [{name: 0, prompt: "Athletes often need to warm up.", options: english_options, horizontal: true, required: true},
+      {name: 1, prompt: "I just saw a moose running down the road!", options: english_options, horizontal: true, required: true},
+      {name: 2, prompt: "John ill felt and went doctor.", options: english_options, horizontal: true, required: true},
+      {name: 3, prompt: "Could you the books put in that boxes?", options: english_options, horizontal: true, required: true},
+      {name: 4, prompt: "I am forget do my homeworks.", options: english_options, horizontal: true, required: true},
+      {name: 5, prompt: "She think English is more easier to learn.", options: english_options, horizontal: true, required: true},
+      {name: 6, prompt: "Tommorow will be thatier than today.", options: english_options, horizontal: true, required: true},
+      {name: 7, prompt: "The building is very murnley.", options: english_options, horizontal: true, required: true},
+      {name: 8, prompt: "Where is the pen that I gave it to you yesterday?", options: english_options, horizontal: true, required: true},
+      {name: 9, prompt: "He was pulled over by the police for driving 120 miles per hour.", options: english_options, horizontal: true, required: true},
+    ]
+    questions_eng_shuffled = jsPsych.randomization.repeat(questions_eng, 1);
+
+    var english = {
+      type: 'survey-multi-choice',
+      questions: questions_eng_shuffled,
+      preamble: 'Are the following sentences good English ("yes") or not ("no")?',
+      data: {block: 'english'}
+    };
+
+    my_timeline.push(english_instructions);
+    my_timeline.push(english);
+
+
+    jsPsych.init({
+      timeline: my_timeline
+    })
+
+  </script>
+</html>
