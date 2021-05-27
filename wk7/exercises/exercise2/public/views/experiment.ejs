@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Experiment</title>
+        <script language="javascript" src="libraries/helper.js"></script>
+        <script language="javascript" src="libraries/jquery-3.6.0.min.js"></script>
+
+        <script language="javascript" src="jspsych/jspsych.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-instructions.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-external-html.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-survey-multi-choice.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-survey-text.js"></script>
+        <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <link href="./css/survey.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body>
+    </body>
+    <script>
+
+    //************
+    //** SETUP
+    //************
+
+    // this just extracts the trial_id sent by app.js
+    var input_data = <%- input_data %>
+    var trial_id = input_data.trial_id;
+    jsPsych.data.addProperties({trial_id: trial_id});
+
+    var timeline = [];
+    var experiment_start_time;
+
+    //************
+    //** CONSENT
+    //************
+
+    var consent = {
+      type: 'external-html',
+      url: '../views/consent.html',
+      check_fn: function(){
+        experiment_start_time = Date.now();
+        return true;
+      },
+      cont_btn: 'consent'
+    }
+
+    //************
+    //** INSTRUCTIONS
+    //************
+
+    var start_instructions = {
+      type: 'instructions',
+      pages: ['This survey will consist of three different sections. We ask that you read the instructions for each section carefully and answer the questions in each section to the best of your ability.'],
+      show_clickable_nav: true,
+    };
+
+
+    //************
+    //** SURVEY
+    //************
+
+    var options = ['Yes', 'No'];
+
+    var multi_choice = {
+      type: 'survey-multi-choice',
+      questions: [
+        {prompt: "I like vegetables", options: options, horizontal: true,},
+        {prompt: "I like fruit", options: options, horizontal: true}
+      ],
+    };
+
+    //************
+    //** SET UP TIMELINE
+    //************
+
+    timeline.push(consent);
+    timeline.push(start_instructions);
+    timeline.push(multi_choice);
+
+    //************
+    //** START EXPERIMENT
+    //************
+
+    jsPsych.init({
+        default_iti: 500,
+        show_progress_bar: true,
+        // exclusions: {
+        //   min_width: 800,
+        //   min_height: 600
+        // },
+        timeline: timeline,
+        on_finish: function(){
+          var dataJSON = helper.prepareData(trial_id, experiment_start_time)
+          var data_url = '/data?trial_id='+trial_id;
+          helper.save(dataJSON, data_url, trial_id);
+        }
+    });
+
+    </script>
+</html>
