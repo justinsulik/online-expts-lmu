@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Experiment</title>
+        <script language="javascript" src="libraries/jquery-3.4.1.min.js"></script>
+        <script language="javascript" src="libraries/lodash.js"></script>
+        <script language="javascript" src="libraries/helper.js"></script>
+        <script language="javascript" src="jspsych/jspsych.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-external-html.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-instructions.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-instructions.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-custom-form.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-table-completion.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-cue-target.js"></script>
+        <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <link href="css/experiment.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body>
+    </body>
+    <script>
+
+    /*
+    Set up: define a few experiment variables
+    */
+
+    // get the data passed along by app.js
+    var input_data = <%- input_data %>
+    var trial_id = input_data.trial_id;
+    console.log('Rendering trial ', trial_id)
+    var completionCode = helper.makeCode(3)+'RtR' + helper.makeCode(5) + '4z4';
+    var completionCodeEnd = completionCode + '_' + trial_id;
+    jsPsych.data.addProperties({completionCode: completionCode,
+                                trial_id: trial_id});
+
+    var timeline = [];
+    var experiment_start_time;
+    // The following needs to match the relevant route in app.js
+    var dataUrl = '/data?trial_id=' + trial_id;
+
+    // Consent form
+
+    var consent = {
+      type: 'external-html',
+      url: '../views/consent.html',
+      check_fn: function(){
+        // start the timer once they've clicked "consent"
+        experiment_start_time = Date.now();
+        return true;
+      },
+      cont_btn: 'consent'
+    }
+
+    // instructions
+
+    var instructions = {
+      type: 'instructions',
+      pages: ['<p>Hello, welcome to the study. You are going to be playing a word game, and then answering some questions about yourself.</p>'+
+      '<p>Please read the instructions carefully. We have included some attention checks and will not be able to use your data if you fail <b>more than</b> one.'],
+      show_clickable_nav: true,
+    }
+
+    /*
+      O-LIFE
+    */
+
+    var o_life_instructions = {
+      type: 'instructions',
+      pages: ['<p>In the next task, we will ask you some questions about your thought processes and experiences. '+
+      'For each statement, say whether it applies to you or not.</p>'],
+      show_clickable_nav: true
+    }
+
+    var o_life_items = [
+    {id: "0", q: "When in the dark do you often see shapes and forms even though there is nothing there?"},
+    {id: "1", q: "Are your thoughts sometimes so strong that you can almost hear them?"},
+    {id: "2", q: "Have you ever thought that you had special, almost magical powers?"},
+    {id: "3", q: "Have you sometimes sensed an evil presence around you, even though you could not see it?"},
+    {id: "4", q: "Do you think that you could learn to read other's minds if you wanted to?"},
+    {id: "5", q: "When you look in the mirror does your face sometimes seem quite different from usual?"},
+    {id: "6", q: "Do ideas and insights sometimes come to you so fast that you cannot express them all?"},
+    {id: "7", q: "Can some people make you aware of them just by thinking about you?"},
+    {id: "8", q: "Does a passing thought ever seem so real it frightens you?"},
+    {id: "9", q: "Do you feel that your accidents are caused by mysterious forces?"},
+    {id: "10", q: "Do you ever have a sense of vague danger or sudden dread for reasons that you do not understand?"},
+    {id: "11", q: "Does your sense of smell sometimes become unusually strong?"},
+    {id: "12", q: "Are you easily confused if too much happens at the same time?"},
+    {id: "13", q: "Do you frequently have difficulty in starting to do things?"},
+    {id: "14", q: "Are you a person whose mood goes up and down easily?"},
+    {id: "15", q: "Do you dread going into a room by yourself where other people have already gathered and are talking?"},
+    {id: "16", q: "Do you find it difficult to keep interested in the same thing for a long time?"},
+    {id: "17", q: "Do you often have difficulties in controlling your thoughts?"},
+    {id: "18", q: "Are you easily distracted from work by daydreams?"},
+    {id: "19", q: "Do you ever feel that your speech is difficult to understand because the words are all mixed up and don't make sense?"},
+    {id: "20", q: "Are you easily distracted when you read or talk to someone?"},
+    {id: "21", q: "Is it hard for you to make decisions?"},
+    {id: "22", q: "When in a crowded room, do you often have difficulty in following a conversation?"},
+    {id: "23", q: "Are there very few things that you have ever enjoyed doing?"},
+    {id: "24", q: "Are you much too independent to get involved with other people?"},
+    {id: "25_R", q: "Do you love having your back massaged?"},
+    {id: "26_R", q: "Do you find the bright lights of a city exciting to look at?"},
+    {id: "27_R", q: "Do you feel very close to your friends?"},
+    {id: "28", q: "Has dancing or the idea of it always seemed dull to you?"},
+    {id: "29_R", q: "Do you like mixing with people?"},
+    {id: "30_R", q: "Is trying new foods something you have always enjoyed?"},
+    {id: "31", q: "Have you often felt uncomfortable when your friends touch you?"},
+    {id: "32", q: "Do you prefer watching television to going out with people?"},
+    {id: "check", q: "Have you ever used the internet?"}]
+
+    var o_life_questions = [];
+    jsPsych.randomization.shuffle(o_life_items).forEach(function(d){
+      o_life_questions.push({
+        type: 'multiple',
+        prompt: d.q,
+        id: d.id,
+        options: ['no', 'yes'],
+        values: [0, 1],
+      })
+    })
+
+    var o_life_1 = {
+      type: 'custom-form',
+      prompt: 'For each statement, say whether it applies to you or not.',
+      questions: o_life_questions.slice(0,12)
+    }
+
+    var o_life_2 = {
+      type: 'custom-form',
+      prompt: 'For each statement, say whether it applies to you or not.',
+      questions: o_life_questions.slice(12,23)
+    }
+
+    var o_life_3 = {
+      type: 'custom-form',
+      prompt: 'For each statement, say whether it applies to you or not.',
+      questions: o_life_questions.slice(23,35)
+    }
+
+    /*
+      ASQ
+    */
+
+    var asq_instructions = {
+      type: 'instructions',
+      pages: ['<p>For the last task, you will be given some descriptions of feelings and preferences. '+
+      'Rate how strongly you agree or disagree that the description applies to you.</p>'],
+      show_clickable_nav: true
+    }
+
+
+    var asq_items = [{q: "I prefer to do things with others rather than on my own", id: "1"},
+    {q: "I find social situations easy", id: "11_R"},
+    {q: "I would rather go to a library than to a party", id: "13"},
+    {q: "I find myself drawn more strongly to people than to things", id: "15_R"},
+    {q: "I find it hard to make new friends", id: "22"},
+    {q: "I enjoy social occasions", id: "44_R"},
+    {q: "I enjoy meeting new people", id: "47_R"},
+    {q: "New situations make me anxious", id: "46"},
+    {q: "I prefer to do things the same way over and over again", id: "2"},
+    {q: "It does not upset my if my daily routine is disturbed", id: "25_R"},
+    {q: "I enjoy doing things spontaneously", id: "34_R"},
+    {q: "I frequently get strongly absorbed in one thing", id: "4"},
+    {q: "I can easily keep track of several different people's conversations", id: "10_R"},
+    {q: "I find it easy to do more than one thing at once", id: "32_R"},
+    {q: "If there is an interruption, I can switch back very quickly", id: "37_R"},
+    {q: "Trying to imagine something, I find it easy to create a picture in my mind", id: "3_R"},
+    {q: "Reading a story, I can easily imagine what the characters might look like", id: "8_R"},
+    {q: "I find making up stories easy", id: "14_R"},
+    {q: "Reading a story, I find it difficult to work out the character's intentions", id: "20"},
+    {q: "I find it easy to work out what someone is thinking or feeling", id: "36_R"},
+    {q: "I find it difficult to imagine what it would be like to be someone else", id: "42"},
+    {q: "I find it difficult to work out people's intentions", id: "45"},
+    {q: "I find it easy to play games with children that involve pretending", id: "50_R"},
+    {q: "I usually notice car number plates or similar strings of information", id: "6"},
+    {q: "I am fascinated by dates", id: "9"},
+    {q: "I am fascinated by numbers", id: "19"},
+    {q: "I notice patterns in things all the time", id: "23"},
+    {q: "I like to collect information about categories of things", id: "41"},
+    {q: "My responses to this study are sincere", id: "check"}]
+
+    var asq_questions = [];
+    jsPsych.randomization.shuffle(asq_items).forEach(function(d){
+      asq_questions.push({
+        row_name: d.q,
+        id: d.id
+      })
+    })
+
+    /*
+      Autism Quotient
+    */
+
+    var asq_1 = {
+      type: 'table-completion',
+      select_one: true,
+      first_wider: 2,
+      response_validation: 'force_column',
+      row_values: asq_questions.slice(0,14),
+      column_headers: ['', 'definitely<br>disagree', 'slightly<br>disagree', 'slightly<br>agree', 'definitely<br>agree'],
+      column_vals: ['NA', 4, 3, 2, 1],
+      preamble: 'Rate how well these descriptions fit you',
+    }
+
+    var asq_2 = {
+      type: 'table-completion',
+      select_one: true,
+      first_wider: 2,
+      response_validation: 'force_column',
+      row_values: asq_questions.slice(14,30),
+      column_headers: ['', 'definitely<br>disagree', 'slightly<br>disagree', 'slightly<br>agree', 'definitely<br>agree'],
+      column_vals: ['NA', 4, 3, 2, 1],
+      preamble: 'Rate how well these descriptions fit you',
+    }
+
+    /*
+      Cue-target
+    */
+
+
+    var cue_target_instructions = {
+      type: 'instructions',
+      pages: ['<p>In this task, you will be playing a word game.</p>'+
+      '<p>The aim of the game is to give someone (another Turker) a clue that will help them guess a word.</p>'+
+      '<p>First, you will be told what word they need to guess. '+
+      'For example, imagine we say "Give someone a clue that will help them guess this word: DOG".</p>'+
+      '<p>Second, you should think of a good clue that will help someone guess your target word. '+
+      'The tricky part is that the only clue you can give them is a <b>single English word</b>. ' +
+      'In this example, a good clue would be "puppy", because most people, if given the word "puppy" and told to think of a word, would say "dog".</p>'+
+      '<p>A bad clue would be "house" because even if "doghouse" seemed obvious to you, '+
+      'most people who are given the clue "house" would guess something like "home" or "building".</p>',
+      '<p>You can\'t be 100% certain that they\'ll get it right. '+
+      'You just need to try think of the word that has the best chance of getting the most people to guess right. '+
+      'We have carefully chosen the target words so that there is always a clue that would have a good chance of success.</p>'+
+      '<p>Please just type a single word, so don\'t use any double word phrases, spaces or punctuation, and pick a word with at least 2 letters.</p>'],
+      show_clickable_nav: true,
+    }
+
+    var cues = [
+      {qNo: 0, target: 'bank'},
+      {qNo: 1, target: 'now'},
+      {qNo: 2, target: 'joke'},
+      {qNo: 3, target: 'bulb'},
+      {qNo: 4, target: 'bed'},
+      {qNo: 5, target: 'snail'},
+      {qNo: 6, target: 'self'},
+      {qNo: 7, target: 'stamp'},
+      {qNo: 8, target: 'ice'},
+      {qNo: 9, target: 'cut'},
+      {qNo: 10, target: 'east'},
+      {qNo: 11, target: 'night'},
+      {qNo: 12, target: 'lost'},
+      {qNo: 13, target: 'good'},
+      {qNo: 14, target: 'king'},
+      {qNo: 15, target: 'nail'},
+      {qNo: 16, target: 'salt'},
+      {qNo: 17, target: 'scratch'},
+      {qNo: 18, target: 'washer'},
+      {qNo: 19, target: 'needle'},
+    ]
+
+    var cues_shuffled = jsPsych.randomization.shuffle(cues);
+
+    var cue_target = {
+      type: 'cue-target',
+      timeline: cues_shuffled,
+      post_trial_gap: 600
+    };
+
+    var demo = {
+      type: 'custom-form',
+      preamble: 'Finally, four questions about yourself',
+      questions: [
+        {type: 'text',
+        id: 'age',
+        prompt: 'Age: ',
+        inline: true,
+        numeric: true},
+        {type: 'select',
+        prompt: 'Gender: ',
+        id: 'gender',
+        options: ['man', 'woman', 'nonbinary', 'Prefer not to say'],
+        values: ['man', 'woman', 'nb', 'none'],
+        inline: true,
+        group: 1},
+        {type: 'multiple',
+        id: 'handedness',
+        prompt: 'What hand do you use (e.g., for writing)?',
+        options: ['Exclusively left', 'Mostly left', 'Both equally', 'Mostly right', 'Exclusively right'],
+        values: [0, 1, 2, 3, 4]},
+        {type: 'select',
+        prompt: 'Highest education completed: ',
+        id: 'education',
+        options: ["No schooling completed", "Primary education (age: 5-10)", "Secondary education (age: 11-17)", "University undergraduate degree/ professional equivalent", "Postgraduate degree (Master's/Doctorate)"],
+        values: [0, 1, 2, 3, 4]}]
+    }
+
+
+    timeline.push(consent);
+    timeline.push(instructions);
+    timeline.push(cue_target_instructions);
+    timeline.push(cue_target);
+    timeline.push(o_life_instructions);
+    timeline.push(o_life_1);
+    timeline.push(o_life_2);
+    timeline.push(o_life_3);
+    timeline.push(asq_instructions);
+    timeline.push(asq_1);
+    timeline.push(asq_2);
+    timeline.push(demo);
+
+    jsPsych.init({
+        default_iti: 500,
+        show_progress_bar: true,
+        // exclusions: {
+        //   min_width: 800,
+        //   min_height: 500
+        // },
+        experiment_width: 800,
+        timeline: timeline,
+        on_finish: function(){
+          console.log('Experiment completed...')
+          var data = helper.prepareData(experiment_start_time);
+          helper.save(data, dataUrl);
+        }
+    });
+
+    </script>
+</html>
