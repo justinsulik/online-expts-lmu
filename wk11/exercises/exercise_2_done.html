@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="scripts/p5.js"></script>
+    <title></title>
+
+  </head>
+  <body>
+
+    <main>
+    </main>
+
+  </body>
+  <script>
+
+      var x;
+      var y;
+      var speed;
+      var shapes = [];
+      var max_speed = 10;
+      var shape_name = 'ellipse';
+
+      function setup() {
+        createCanvas(800, 600);
+        background(220);
+        x = 50;
+        y = 50;
+        speed = 5;
+        shapes.push({x: x, y: y, speed: speed, size: 10, color: [255, 204, 0]});
+      }
+
+      function draw() {
+        background(220);
+        shapes.forEach((shape, i) => {
+          if(shape.x > width || shape.x < 0){
+            shape.speed = -1*shape.speed
+          }
+          shape.x += shape.speed
+          fill(shape.color[0], shape.color[1], shape.color[2]);
+          if(shape_name=='ellipse'){
+            ellipse(shape.x, shape.y, shape.size);
+          } else if (shape_name=='rectangle') {
+            rect(shape.x, shape.y, shape.size, shape.size);
+          }
+        });
+
+      }
+
+      function mouseClicked(){
+        console.log(mouseX, mouseY);
+        var speed_random = random(1, 10);
+        var size = random(4, 20);
+        // option 2: random colors
+        var color = [random(0, 255), random(0, 255), random(0, 255)];
+        // option 3: color correlates with speed
+        // var color = [255*(1-speed_random/max_speed), 0, speed_random/max_speed*255];
+        shapes.push({x: mouseX, y: mouseY, speed: speed_random, size: size, color: color});
+      }
+
+      function keyPressed(){
+        // reference at https://p5js.org/reference/#/p5/keyPressed tells you there's a defined 'keyCode' variable
+        // for the specific codes, you can check https://keycode.info
+        // but you can also just print it out to check what value SPACE has
+        console.log(keyCode)
+        if(keyCode==32){
+          if(shape_name=='ellipse'){
+            shape_name='rectangle'
+          } else {
+            shape_name = 'ellipse'
+          }
+        }
+      }
+
+      // tasks:
+      // 1. when the mouse is clicked, add a new ellipse at that point. Things to think about:
+      // 1a. how to get the current mouse position
+      // 1b. how to keep track of multiple ellipses
+      // 1c. how to draw multiple ellipses
+
+      // 2 make each ellipse have a different color, size or speed
+      // 3 (if time allows) make the faster circles have a colder color and the slower a warmer one
+      // 4 (if time allows) make the shapes alternate between ellipse and rectangle when SPACE is pushed
+
+      // note: if you're used to this kind of thing, you might want to create a Class for these ellipses
+      // if so, great, give it a go. But it would involve a bit too much explanation to get into in class
+
+  </script>
+</html>

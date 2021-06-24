@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="scripts/p5.js"></script>
+    <title></title>
+
+  </head>
+  <body>
+
+    <main>
+    </main>
+
+  </body>
+  <script>
+
+      var x;
+      var y;
+      var speed;
+
+      function setup() {
+        createCanvas(800, 600);
+        background(220);
+        fill(255, 204, 0);
+        x = 50;
+        y = 50;
+        speed = 5;
+      }
+
+      function draw() {
+        background(220);
+        ellipse(x, y, 20)
+        // option 5a
+        if(x>width){
+          speed = -5
+        } else if (x < 0) {
+          speed = 5
+        }
+        // option 5b
+        // if(x>width){
+        //   x = 0
+        // }
+        x += speed
+
+      }
+
+      // tasks:
+      // 1. parameterise the x,y position of the circle
+      // 2. change its color (look at the "Setting" section of "Color" at https://p5js.org/reference/)
+      // 3. make the circle move across the screen by updating the x position in draw()
+      // 4. look again at the reference docs: find out how to refer to the width/height of the sketch
+      // 5. use this new knowledge to do one of 2 things:
+      //    5a. EITHER have the ball bounce when it hits a wall;
+      //    5b. OR have it wrap around
+
+  </script>
+</html>
