@@ -247,7 +247,7 @@ Classes
 
 Collection Students
 ```
-{student_id: 1234, classes: [{phil101: A, phil103: B}]}
+{student_id: 1234, classes: [{phil101: A}, {phil103: B}]}
 {student_id: 3456, classes: [{eng101: A}]}
 ```
 
