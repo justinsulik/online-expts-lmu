@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Experiment</title>
+        <script language="javascript" src="libraries/helper.js"></script>
+        <script language="javascript" src="libraries/jquery-3.6.0.min.js"></script>
+        <script language="javascript" src="jspsych/jspsych.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-instructions.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-survey-text.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-external-html.js"></script>
+        <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <link href="css/experiment.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body>
+    </body>
+    <script>
+
+/****
+
+Set up study variables
+
+****/
+
+    var input_data = <%- input_data %> // data passed from app.js
+    var trial_id = input_data.trial_id;
+    var completion_code = helper.makeCode(5);
+    jsPsych.data.addProperties({code: completion_code,
+                                trial_id: trial_id});
+    var data = {};
+    var timeline = [];
+    var experiment_start_time;
+    var dataUrl = '/data?token=' + trial_id+"_"+completion_code;
+
+/****
+
+Define trials
+
+*****/
+
+    var consent = {
+      type: 'external-html',
+      url: '../views/consent.html',
+      check_fn: function(){
+        experiment_start_time = Date.now();
+        return true;
+      },
+      cont_btn: 'consent'
+    }
+
+    var instructions = {
+      type: 'instructions',
+      pages: ['Blah blah instructions blah'],
+      show_clickable_nav: true,
+    }
+
+    var text_survey = {
+      type: 'survey-text',
+      questions: [{name: 'weather', prompt: 'How is the weather today?', placeholder: '', rows: 4, columns: 80}]
+    }
+
+/******
+
+Populate timeline
+
+******/
+
+    timeline.push(consent);
+    timeline.push(instructions);
+    timeline.push(text_survey);
+
+
+/******
+
+Initialize experiment
+
+******/
+
+    jsPsych.init({
+        default_iti: 500,
+        show_progress_bar: true,
+        // Uncomment if you want a minimum screen size
+        // exclusions: {
+        //   min_width: 800,
+        //   min_height: 500
+        // },
+        timeline: timeline,
+        on_finish: function(){
+          var dataJSON = helper.prepareData(trial_id, experiment_start_time)
+          console.log(dataJSON)
+          var data_url = '/data?trial_id='+trial_id;
+          helper.save(dataJSON, data_url, trial_id);
+        }
+    });
+
+    </script>
+</html>
