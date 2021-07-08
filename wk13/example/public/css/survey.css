@@ -1,0 +1,40 @@
+
+
+body {
+  text-align: left;
+}
+
+ol.caps {
+  text-align: left;
+}
+
+.instructions {
+  width: 800px;
+  padding: 30px;
+}
+
+.left {
+  text-align: left;
+}
+
+.jspsych-survey-multi-choice-option {
+  font-size: 12px;
+}
+
+.jspsych-content {
+  width: 800px
+}
+
+#tracker {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+/* .jspsych-survey-multi-choice-option > input {
+  opacity: 0;
+} */
+
+.estimateContainer {
+  width:600px;
+}

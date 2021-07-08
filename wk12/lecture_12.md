@@ -93,7 +93,7 @@ heroku login
 <img src="image/heroku_auto.png" style="width:800px">
 
 
-## (3b) Initialize app via web interface
+## (3b) Initialize app via command line interface
 
 - In same directory as app+git repo
 

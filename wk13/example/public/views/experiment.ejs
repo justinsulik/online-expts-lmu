@@ -1,0 +1,283 @@
+
+
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+        <title>Experiment</title>
+        <script language="javascript" src="libraries/p5.min.js"></script>
+        <script language="javascript" src="libraries/p5.dom.js"></script>
+        <script language="javascript" src="libraries/lodash.min.js"></script>
+        <script language="javascript" src="libraries/jquery-3.4.1.min.js"></script>
+        <script language="javascript" src="jspsych/jspsych.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-instructions.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-survey-multi-choice.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-survey-text.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-survey-likert-customized.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-mouse-trap.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-contingency.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-coin-toss.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-twofoursix.js"></script>
+        <script language="javascript" src="jspsych/plugins/jspsych-external-html.js"></script>
+        <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <link href="./css/survey.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body>
+    </body>
+    <script>
+
+
+
+    var timeline = [];
+
+    // task 2: coin toss
+
+    var tosses_list = [1, 0, 1, 1, 1, 1, 1, 1, 0, 0,
+      1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+      1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+      0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1,
+      1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1,
+      0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1,
+      0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0,
+      0, 1, 1, 0, 0, 1]
+
+    var tosses = [];
+    tosses_list.forEach(function(d,i){
+      var batch = Math.floor(i/10)
+      if(!tosses[batch]){
+        tosses[batch] = {draws: [], trial_number: batch}
+      }
+      tosses[batch].draws.push(d)
+    })
+
+    var coin_instructions = {
+      type: 'instructions',
+      pages: ['For the next task, we tossed a coin 100 times and we will show you the outcomes (H for heads, T for tails), 10 tosses at a time.<br><br>'+
+      'You need to decide whether you think each sequence of 10 tosses looks completely random, or whether you think the sequence has been determined somehow, or reflects some pattern.<br><br>'+
+      '<b>To be clear:</b> the same coin is being used throughout all 100 tosses -- we are just dividing it into 10 sequences of 10 tosses for ease of presentation.'],
+      show_clickable_nav: true
+    }
+
+    var coin_trials = {
+      type: 'coin-toss',
+      timeline: tosses
+    }
+
+    // task 3
+
+    var mousetrap_instructions = {
+      type: 'instructions',
+      pages: ['In the next task, you will play a game where you control a hungry little mouse. Your aim is to help the mouse to get to the cheese.<br><br>'+
+      "The problem is, the cheese is in a trap! You'll have 10 attemps to try get the cheese.",
+      "There is a rule that determines whether the mouse manages to get the cheese, or gets caught in the trap.<br><br>"+
+      "Your task is twofold: you should make the mouse get the cheese as many times as possible, and, at the same time, you should try to find the rule that determines whether the mouse will be successful or not.",
+      "At the start of each attempt, hit the SPACE bar to start the timer, which will give you 20 seconds to try get the cheese.<br><br>"+
+      "Thereafter, use the W, A, S, D keys to control the mouse:<br>"+
+      "        W - up<br>"+
+      "A - left;          D - right<br>"+
+      "         S - down"],
+      show_clickable_nav: true
+    }
+
+    var mousetrap = {
+      type: 'mouse-trap',
+      attempts: 10
+    }
+
+    var mousetrap_answer = {
+      type: 'survey-text',
+      questions: [{prompt: 'What do you think determined whether you got the cheese or not?',
+      required: true,
+      rows: 4,
+      columns: 80,
+      placeholder: '',
+      name: 'mousetrap-answer'}]
+    }
+
+    var mouse_questions = [{name: 'h0',
+                 prompt: 'In order to get the cheese, I had to begin the sequence with a particular key press.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h1',
+                 prompt: 'In order to get the cheese, I had to do a U-turn, or to go back on my path.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h2',
+                 prompt: 'In order to get the cheese, I had to wait a certain amount of time before landing on the trap.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h3',
+                 prompt: 'In order to get the cheese, I had to approach the trap from a particular direction.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h4',
+                 prompt: 'In order to get the cheese, I had to make sure I visited a particular square.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h5',
+                 prompt: 'In order to get the cheese, I had to avoid visiting a particular square.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h6',
+                 prompt: 'In order to get the cheese, I had to take a particular route.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h7',
+                 prompt: 'In order to get the cheese, I had to press a certain key combination.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h8',
+                 prompt: 'In order to get the cheese, I had to walk into a wall.',
+                 options: ["Yes", "No"],
+                 required: true},
+                 {name: 'h9',
+                 prompt: 'In order to get the cheese, I had to dress in drag and do the hula.',
+                 options: ["Yes", "No"],
+                 required: true}]
+
+    var mousetrap_feedback1 = {
+      type: 'survey-multi-choice',
+      preamble: "The following statements are some of the potential rules that might have occurred to you AT SOME POINT during the task. "+
+      "Please choose YES if at ANY POINT you thought a particular behaviour might be relevant for obtaining the cheese, and NO if it didn\'t even occur to you. "+
+      "<b>Note:</b> you should choose YES if you considered the statement a possible rule AT ANY POINT, even if you later changed your mind.",
+      questions: mouse_questions,
+      randomize_question_order: true,
+      data: {scale: 'mouse-feedback1'},
+    }
+
+    var mousetrap_feedback2 = {
+      type: 'survey-multi-choice',
+      preamble: "Here are the same statements again. This time, they refer to what you consider relevant NOW after completing the task. "+
+      "Please choose YES if you currently think a particular behaviour was relevant for obtaining the cheese and NO if you think it was irrelevant. "+
+      "<b>Note:</b> your choice of YES or NO for your CURRENT beliefs may be quite independent of what you previously thought during the task.",
+      questions: mouse_questions,
+      data: {scale: 'mouse-feedback2'},
+      randomize_question_order: true
+    }
+
+    // 4 spurious correlations
+
+    correlation_instructions = {
+      type: 'instructions',
+      pages: ['In the next task, you will answer some questions about CORRELATIONS. '+
+      'A correlation is when two measurable things appear to have a relationship.<br><br>'+
+      'For instance, height is correlated with weight, meaning that the taller someone is, the larger their weight tends to be. The shorter they are, the lower their weight tends to be.<br><br>'+
+      'True, someone can be shorter and heavier or be taller and lighter, but the pattern holds true in general &mdash; across large groups or populations, taller people tend to weigh more.',
+      'There can be several REASONS why two things are correlated:'+
+      '<ul class="left"><li><b>CAUSATION: </b>Sometimes, two things are correlated because one causes the other. '+
+      'There is a relationship between the number of alcoholic drinks someone has and their chance of a headache, '+
+      'because too much alcohol causes hangovers.</li>'+
+      '<li><b>THIRD FACTOR: </b>Sometimes, two things are correlated because they are both caused by something else. '+
+      'There is a relationship between the number of ice creams sold and deaths by drowning, '+
+      'but eating ice creams doesn\'t cause drowning and drowning doesn\'t cause people to eat ice cream. '+
+      'Instead, hot days cause people to be more likely to eat ice cream and hot days also cause people to be more likely to swim. '+
+      'So while it\'s true that there is a correlation between ice creams and drowning, this is explained by the third factor: the day\'s temperature.</li>'+
+      '<li><b>RANDOM:</b> Sometimes, two things can be correlated purely by accident. It turns out that the age of Miss America is correlated with the number of murders by steam, hot vapors and hot objects, but obviously this is just a coincidence.</li></ul>',
+      'Your aim to decide whether a correlation is causal, third factor, or random. It is possible for a correlation to be multiple kinds.'],
+      show_clickable_nav: true
+    }
+
+    var prompt_details = ' Please rate how much you agree with the following possible explanations of the relation between the above two events.'
+
+    var correlation_prompts = ['It has been shown that an increase in the number of storks is associated with an increase in the number of children.',
+    'It has been shown that an increase in people\'s income is associated with more visits to the hospital.',
+    'It has been shown that an increase in body lice is associated with an increase in health.',
+    'It has been shown that an increase in chocolate consumption is associated with an increase in Nobel prize winners in a country.',
+    'It has been shown that an increase in the amount of US spending on science, space and technology is associated with an increase in suicides by hanging, strangulation and suffocation.',
+    'It has been shown that an increase in the average global temperature is associated with an increase in the national science foundation budget.']
+
+    var correlation_labels = ['Strongly disagree', 'Somewhat disagree', 'Slightly disagree', 'Neither agree nor disagree', 'Slightly agree', 'Somewhat agree', 'Strongly agree'];
+    var correlation_scales = [
+      {prompt: 'This is a <b>causal</b> relation. One event caused (directly or indirectly) the other.',
+       name: 'cause',
+       labels: correlation_labels,
+       required: true},
+      {prompt: 'This relation is explained by a <b>third factor</b> that affects the prevalence of both events.',
+       name: 'third',
+       labels: correlation_labels,
+       required: true},
+      {prompt: 'This relation is a <b>random</b> coincidence.',
+       name: 'random',
+       labels: correlation_labels,
+       required: true}
+     ];
+
+
+    var correlation_items = _.map(correlation_prompts, function(d, i){
+      return {preamble: d+prompt_details, data: {questionNo: i, question: d}, questions: correlation_scales}
+    })
+
+    var correlation_items_shuffled = jsPsych.randomization.shuffle(correlation_items);
+
+    var correlation = {
+      type: 'survey-likert',
+      timeline: correlation_items_shuffled,
+      data: {scale: 'correlation'}
+    }
+
+    // 5 contingency
+
+    var contingency_instructions = {
+      type: 'instructions',
+      pages: ['In the next task, you are playing as a doctor, who is studying a disease called Lancaster syndrome. '+
+        "The main symptom of the disease is that the patient's skin goes green. You will see 20 patients that all have Lancaster Syndrome.<br><br>"+
+        "Your job is to test a medicine called Batatrim. You <b>think</b> it might help cure Lancaster Syndrome, but you're not sure.",
+        "Part of the problem is that no cure is perfect. You are not expecting it to always work - just that it will increase the patient's chances of recovery.<br><br>"+
+        "The other problem is that there is a chance that patients will get better without any intervention. Even if you do nothing, they might just get better by themselves!<br>"+
+        "For each patient, you can choose to administer a dose of Batatrim, or to leave them alone.<br><br>"+
+        "You should administer Batatrim to some of the patients to see if it has any effect. You should also leave some of them alone, to observe how likely they are to get better without any intervention."],
+        show_clickable_nav: true
+    }
+
+    var contingency = {
+      type: 'contingency',
+    }
+
+    var contingency_labels_effect = ['Extremely ineffective', 'Somewhat ineffective', 'As effective<br>as not', 'Somewhat effective', 'Extremely effective'];
+    var contingency_labels_confident = ['Extremely unconfident', 'Somewhat unconfident', 'About 50:50', 'Somewhat confident', 'Extremely confident'];
+
+    var contingency_feedback = {
+      type: 'survey-likert',
+      preamble: 'What have you learned about Batatrim?',
+      questions: [{prompt: 'How effective do you think Batatrim is in treating Lancaster syndrome?',
+        name: 'effect',
+        labels: contingency_labels_effect,
+        required: true},
+      {prompt: 'How confident are you in your judgment on Batatrim?',
+        name: 'confidence',
+        labels: contingency_labels_confident,
+        required: true}],
+      data: {scale: 'contingency-feedback'}
+    }
+
+    // add to timeline
+    timeline.push(coin_instructions)
+    timeline.push(coin_trials)
+    timeline.push(mousetrap_instructions)
+    timeline.push(mousetrap)
+    timeline.push(mousetrap_answer)
+    timeline.push(mousetrap_feedback1)
+    timeline.push(mousetrap_feedback2)
+    timeline.push(correlation_instructions);
+    timeline.push(correlation);
+    timeline.push(contingency_instructions);
+    timeline.push(contingency);
+    timeline.push(contingency_feedback);
+
+    jsPsych.init({
+        default_iti: 500,
+        show_progress_bar: true,
+        exclusions: {
+          min_width: 800,
+          min_height: 600
+        },
+        timeline: timeline,
+        on_finish: function(){
+          finish();
+        }
+    });
+
+function finish(){
+  window.location.href = "/finish";
+}
+    </script>
+</html>
